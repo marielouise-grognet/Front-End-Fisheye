@@ -1,5 +1,5 @@
 function photographerTemplate(data) {
-    const { name, portrait, city, country, tagline, price } = data;
+    const { name, portrait, city, country, tagline, price, id } = data;
 
     const picture = `assets/photographers/idphoto/${portrait}`;
 
@@ -7,7 +7,7 @@ function photographerTemplate(data) {
         const article = document.createElement( 'article' );
 
         const link = document.createElement( 'a' )
-        link.setAttribute("href", `index.html`) 
+        link.setAttribute("href", `photographer.html?id=${id}`) 
         link.setAttribute("aria-label", `Accéder à la page du photographe ${name}`)
         
         const img = document.createElement( 'img' );
@@ -16,7 +16,6 @@ function photographerTemplate(data) {
 
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
-
 
         link.appendChild(img)
         link.appendChild(h2)
@@ -34,7 +33,6 @@ function photographerTemplate(data) {
         const pricePrestation = document.createElement( 'p' );
         pricePrestation.classList.add(`photographer-price`)
         pricePrestation.textContent = `${price}€/jour`;
-
 
         article.appendChild(location)
         article.appendChild(slogan)
