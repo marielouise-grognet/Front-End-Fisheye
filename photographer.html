@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -18,6 +20,21 @@
         </div>
       </div>
       <div class="galleryContainer">
+        <div class="menuFilter">
+          <label for="tri" class="tri"> Trier par</label>
+          <details class="dropdown">
+            <summary class="dropdown-selected">
+              <span class="selected-text">Popularité</span>
+              <span class= "chevron-down"><i class="fa-solid fa-chevron-down"></i></span>
+              <span class= "chevron-up"><i class="fa-solid fa-chevron-up"></i></span>
+            </summary>
+            <ul class="dropdown-options">
+              <li data-value="date">Date</li>
+              <li data-value="title">Titre</li>
+            </ul>
+          </details>
+          
+        </div>
         <div class="media-gallery"></div>
       </div>
       <div class="fixedWidget">

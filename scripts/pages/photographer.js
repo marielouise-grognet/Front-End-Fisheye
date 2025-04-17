@@ -1,3 +1,28 @@
+const dropdown = document.querySelector('.dropdown');
+const selectedText = dropdown.querySelector('.selected-text');
+const options = dropdown.querySelectorAll('.dropdown-options li');
+
+// Ajout de l'écoute sur chaque option
+options.forEach(option => {
+  option.addEventListener('click', () => {
+    const value = option.getAttribute('data-value');
+
+    // Récupérer l'ancien texte sélectionné
+    const oldText = selectedText.textContent;
+
+    // Mise à jour du texte visible dans le summary
+    selectedText.textContent = option.textContent;
+    option.textContent = oldText;
+
+    // Fermeture manuelle du menu
+    dropdown.removeAttribute('open');
+
+    // Appel de ta logique de tri ici
+    console.log("Trier par :", value);
+  });
+});
+
+
 
 async function getPhotographer() {
     try {
@@ -36,4 +61,3 @@ async function init() {
 }
 
 init();//Mettre le code JavaScript lié à la page photographer.html
-
