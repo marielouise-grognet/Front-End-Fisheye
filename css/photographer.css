@@ -1,4 +1,20 @@
+.close-button {
+    all: unset; /* Réinitialise tous les styles par défaut */
+    background: none; /* Enlève le fond du bouton */
+    border: none; /* Enlève la bordure */
+    padding: 0; /* Enlève le padding du bouton */
+    margin: 0; /* Enlève les marges du bouton */
+    outline: none; /* Enlève le contour qui peut apparaître lors du focus */
+    cursor: pointer; /* Définit le curseur en forme de main pour indiquer que c'est un bouton */
+  }
 
+  button.close-button:focus {
+    outline: none; /* Retire le contour par défaut, si tu veux le remplacer */
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.5); /* Contour bleu lumineux pour le focus */
+    background-color: rgba(0, 122, 255, 0.1); /* Change légèrement le fond pour montrer que l'élément est en focus */
+  }
+  
+  
 
 .menuFilter {
     margin-top : 50px;
@@ -169,7 +185,8 @@ span {
 }
 
 .media-card {
-    width : 30%;
+    width : 280px;
+    max-width: 100%;
     margin-left : 0px;
     margin-right: 0px;
     display: flex;
@@ -331,6 +348,7 @@ form label {
     margin-top:10px;
     margin-bottom: 5px;
 }
+
 
 form div {
     display: flex;

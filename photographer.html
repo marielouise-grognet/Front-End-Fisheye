@@ -16,7 +16,7 @@
     <main id="main">
       <div class="photograph-header">
         <div class="photographerContent">
-          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+          <button class="contact_button" onclick="displayModal()" aria-label="Ouvrir la modale">Contactez-moi</button>
         </div>
       </div>
       <div class="galleryContainer">
@@ -41,22 +41,25 @@
 
       </div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" role="dialog" aria-modal="true" aria-labelledby="contact" tabindex="-1">
 			<div class="modal">
 				<header>
           <h2 id="contact">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <button onclick="closeModal()" aria-label="Fermer la modale" class="close-button">
+            <img src="assets/icons/close.svg" alt="Fermer la modale" />
+          </button>
+          
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input/>
-            <label>Nom</label>
-						<input/>
-            <label>E-mail</label>
-						<input/>
-            <label>Votre message</label>
-						<input class="messageInput"/>
+						<label for="firstName">Prénom</label>
+						<input id="firstName"/>
+            <label for="lastName">Nom</label>
+						<input id="lastName"/>
+            <label for="email">E-mail</label>
+						<input id="email"/>
+            <label for="message">Votre message</label>
+						<textarea class="messageInput" id="message"></textarea>
             <button class="send_button">Envoyer</button>
           </div>
 				</form>
