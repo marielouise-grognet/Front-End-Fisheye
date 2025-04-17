@@ -231,14 +231,36 @@ article {
 }
 
 #contact_modal {
-    display: none;
-}
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 2000; /* Pour qu’elle soit toujours au-dessus */
+        background-color: rgba(0, 0, 0, 0.5); /* Optionnel : fond semi-transparent */
+    }
+    
 
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
     margin-bottom: 40px;
+}
+
+.send_button {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 60px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .contact_button {
@@ -260,6 +282,9 @@ article {
 }
 
 .modal {
+    margin: 8% auto;
+    max-height: 750px;
+    overflow-y: auto;
     border-radius: 5px;
     background-color: #DB8876;
     width: 50%;
@@ -268,22 +293,29 @@ article {
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: auto;
+    padding-top: 20px;
 }
 
 .modal header {
     justify-content: space-between;
     width: 100%;
+    margin-top : 20px;
+    margin-bottom :20px;
+    display: flex;
 }
 
 .modal header img {
     cursor: pointer;
+    size: 30px;
+    padding-bottom: 50px;
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 40px;
     font-weight: normal;
-    text-align: center;
+    color:black;
+    margin-top: 0px;
+
 }
 
 form {
@@ -295,7 +327,9 @@ form {
 
 form label {
     color: #312E2E;
-    font-size: 36px;
+    font-size: 25px;
+    margin-top:10px;
+    margin-bottom: 5px;
 }
 
 form div {
@@ -308,7 +342,15 @@ form div {
 
 form input {
     width: 100%;
-    height: 68px;
+    height: 50px;
     border: none;
     border-radius: 5px;
+}
+
+.messageInput {
+    width: 100%;
+    height: 130px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 30px;
 }
