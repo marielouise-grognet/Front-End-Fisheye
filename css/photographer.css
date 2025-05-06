@@ -1,3 +1,92 @@
+.chevronCroix {
+    display: flex;
+    flex-direction: column;
+    position:relative;
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 9999; /* S'assurer qu'elle se superpose */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden; /* Par défaut, caché */
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Transition pour rendre l'apparition fluide */
+  }
+  
+  /* Quand la lightbox est visible */
+  .lightbox:not(.hidden) {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Contenu de la lightbox */
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    overflow: hidden;
+    background-color: #fff; /* Fond blanc pour le contenu */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+    
+  .lightbox-content h2 {
+    font-size: 1em;
+  }
+  
+  .lightbox-content img {
+    width: 600px;              /* Taille fixe */
+    height: 600px;             /* Carré parfait */
+    object-fit: cover;         /* Remplir le carré, en rognant si besoin */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+
+  
+
+  /* Style des boutons de navigation */
+  .lightbox-prev, .lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #901C1C;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .lightbox-prev {
+    left: 50px;
+  }
+  
+  .lightbox-next {
+    right: 10px;
+  }
+  
+  /* Bouton de fermeture de la lightbox */
+  .close-button_red {
+    position:absolute ;
+    top: -272px;
+
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+
 .close-button {
     all: unset; /* Réinitialise tous les styles par défaut */
     background: none; /* Enlève le fond du bouton */
@@ -7,6 +96,16 @@
     outline: none; /* Enlève le contour qui peut apparaître lors du focus */
     cursor: pointer; /* Définit le curseur en forme de main pour indiquer que c'est un bouton */
   }
+
+
+  
+
+  .close-button_red i {
+    color: #901C1C;  /* ta couleur désirée */
+    font-size: 2rem;
+  }
+  
+
 
   button.close-button:focus {
     outline: none; /* Retire le contour par défaut, si tu veux le remplacer */
@@ -19,6 +118,10 @@
 .menuFilter {
     margin-top : 50px;
     display: flex;
+}
+
+.hidden {
+    display: none;
 }
 
 .dropdown {

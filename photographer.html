@@ -65,6 +65,23 @@
 				</form>
 			</div>
 		</div>
+    <div id="lightbox" class="lightbox hidden">
+
+
+  <span class="lightbox-prev" onclick="prevImage()">&#10094;</span>
+  
+  <div class="lightbox-content"></div>
+
+  <div class="chevronCroix">
+    <button onclick="closeLightbox()" aria-label="Fermer la modale" class="close-button_red">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <span class="lightbox-next" onclick="nextImage()">&#10095;</span>
+  </div>
+    
+</div>
+
+    
     <script src="scripts/templates/photographer.js"></script>
     <script src="/scripts/pages/photographer.js" aria-label ="ouvrir la page du photographe"></script>
     <script src="/scripts/media.js"></script>

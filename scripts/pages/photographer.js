@@ -41,7 +41,6 @@ async function getPhotographer() {
         console.error("Erreur lors du chargement des photographes :", error);
         return { error };
     }
-
 }
 
 async function displayPhotographer(photographer) {

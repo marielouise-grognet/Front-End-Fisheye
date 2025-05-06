@@ -464,6 +464,8 @@ function mediaFactory(media) {
   
     return { getMediaCardDOM };
   }
+
+  
   
 
 
@@ -477,11 +479,85 @@ const filteredMedia = mediaList.filter(media => media.photographerId === photogr
 // 3. Afficher uniquement les médias filtrés
 const container = document.querySelector(".media-gallery");
 
-filteredMedia.forEach((media) => {
+filteredMedia.forEach((media, index) => {
     const mediaModel = mediaFactory(media);
     const mediaCard = mediaModel.getMediaCardDOM();
+
+    const mediaElement = mediaCard.querySelector("img, video");
+    if (mediaElement) {
+        mediaElement.style.cursor = "pointer";
+        mediaElement.addEventListener("click", () => {
+            console.log("Media clicked:", media.title);
+            openLightbox(index);
+        });
+    }
+
     container.appendChild(mediaCard);
 });
+
+let currentIndex = 0;
+
+// Fonction pour créer le contenu de la lightbox
+function openLightbox(index) {
+  const media = filteredMedia[index];
+  const lightbox = document.getElementById("lightbox");
+  const content = lightbox.querySelector(".lightbox-content");
+  content.innerHTML = ""; // Reset
+
+  let mediaElement;
+  if (media.video) {
+    mediaElement = document.createElement("video");
+    mediaElement.src = media.video;
+    mediaElement.controls = true;
+  } else {
+    mediaElement = document.createElement("img");
+    mediaElement.src = media.image;
+    mediaElement.alt = media.title;
+  }
+
+  const title = document.createElement("h2");
+  
+  title.textContent = media.title;
+
+  content.appendChild(mediaElement);
+  content.appendChild(title);
+
+  lightbox.classList.remove("hidden");
+  currentIndex = index;
+}
+
+// Fermer la lightbox
+function closeLightbox () {
+    const lightbox = document.getElementById ("lightbox");
+    lightbox.classList.add("hidden")
+}
+
+// Naviguer à gauche
+document.querySelector(".lightbox-prev").addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + filteredMedia.length) % filteredMedia.length;
+  openLightbox(currentIndex);
+});
+
+// Naviguer à droite
+document.querySelector(".lightbox-next").addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % filteredMedia.length;
+  openLightbox(currentIndex);
+});
+
+// Fonction pour gérer la navigation avec le clavier
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {  // Flèche gauche
+      currentIndex = (currentIndex - 1 + filteredMedia.length) % filteredMedia.length;
+      openLightbox(currentIndex);
+    } else if (event.key === 'ArrowRight') {  // Flèche droite
+      currentIndex = (currentIndex + 1) % filteredMedia.length;
+      openLightbox(currentIndex);
+    } else if (event.key === 'Escape') {  // Touche "Echap" pour fermer la lightbox
+      closeLightbox();
+    }
+  });
+  
+
 
 // 4. Calculer le total de likes pour ce photographe
 const totalLikes = filteredMedia.reduce((sum, media) => sum + media.likes, 0);
