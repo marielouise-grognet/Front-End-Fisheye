@@ -2,6 +2,11 @@ const dropdown = document.querySelector('.dropdown');
 const selectedText = dropdown.querySelector('.selected-text');
 const options = dropdown.querySelectorAll('.dropdown-options li');
 
+
+
+
+
+
 // Ajout de l'écoute sur chaque option
 options.forEach(option => {
   option.addEventListener('click', () => {
@@ -18,9 +23,46 @@ options.forEach(option => {
     dropdown.removeAttribute('open');
 
     // Appel de ta logique de tri ici
-    console.log("Trier par :", value);
+    sortAndDisplayMedia(value);
+
   });
-});
+})
+
+
+
+
+function sortAndDisplayMedia(criteria) {
+    // 1. Trier filteredMedia selon le critère
+    if (criteria === "popularity") {
+      filteredMedia.sort((a, b) => b.likes - a.likes);
+    } else if (criteria === "date") {
+      // Suppose que tu as une clé "date" dans chaque objet media
+      filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (criteria === "title") {
+      filteredMedia.sort((a, b) => a.title.localeCompare(b.title));
+    }
+  
+    // 2. Vider la galerie
+    const container = document.querySelector(".media-gallery");
+    container.innerHTML = "";
+  
+    // 3. Réafficher les médias triés
+    filteredMedia.forEach((media, index) => {
+      const mediaModel = mediaFactory(media);
+      const mediaCard = mediaModel.getMediaCardDOM();
+  
+      const mediaElement = mediaCard.querySelector("img, video");
+      if (mediaElement) {
+        mediaElement.style.cursor = "pointer";
+        mediaElement.addEventListener("click", () => {
+          openLightbox(index);
+        });
+      }
+  
+      container.appendChild(mediaCard);
+    });
+  }
+  ;
 
 
 
