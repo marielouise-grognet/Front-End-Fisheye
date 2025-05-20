@@ -566,8 +566,6 @@ let filteredMedia = mediaList.filter(media => media.photographerId === photograp
 
 sortAndDisplayMedia("popularity");
 
-// 3. Afficher uniquement les médias filtrés
-const container = document.querySelector(".media-gallery");
 
 function sortAndDisplayMedia(criteria) {
     // Trier les médias selon le critère

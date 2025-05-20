@@ -1,32 +1,51 @@
+
 const dropdown = document.querySelector('.dropdown');
 const selectedText = dropdown.querySelector('.selected-text');
 const options = dropdown.querySelectorAll('.dropdown-options li');
 
 
 
+  
 
 
 
-// Ajout de l'écoute sur chaque option
-options.forEach(option => {
-  option.addEventListener('click', () => {
+options.forEach((option, index) => {
+    // Clic souris
+    option.addEventListener("click", () => handleOptionSelect(option));
+  
+    // Navigation clavier
+    option.addEventListener("keydown", (e) => {
+      const key = e.key;
+  
+      if (key === "Enter" || key === " ") {
+        e.preventDefault();
+        handleOptionSelect(option);
+      } else if (key === "ArrowDown") {
+        e.preventDefault();
+        const next = options[index + 1] || options[0];
+        next.focus();
+      } else if (key === "ArrowUp") {
+        e.preventDefault();
+        const prev = options[index - 1] || options[options.length - 1];
+        prev.focus();
+      }
+    });
+  
+    // Rendre les options focusables
+    option.setAttribute("tabindex", "0");
+  });
+  
+  
+  function handleOptionSelect(option) {
     const value = option.getAttribute('data-value');
-
-    // Récupérer l'ancien texte sélectionné
     const oldText = selectedText.textContent;
-
-    // Mise à jour du texte visible dans le summary
     selectedText.textContent = option.textContent;
     option.textContent = oldText;
-
-    // Fermeture manuelle du menu
+  
     dropdown.removeAttribute('open');
-
-    // Appel de ta logique de tri ici
     sortAndDisplayMedia(value);
-
-  });
-})
+  }
+  
 
 
 
