@@ -327,14 +327,7 @@ const mediaList = [
     likes:789,
     date:"2020-12-17",
 },
-{
-    id:42,
-    photographerId:925,
-    title:"Majesty",
-    image:"assets/samplephotos-2/Rhode/Animals_Majesty.jpg",
-    likes:789,
-    date:"2011-12-17",
-},
+
 {
     id:43,
     photographerId:925,

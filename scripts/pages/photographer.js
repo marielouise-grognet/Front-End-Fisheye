@@ -1,11 +1,9 @@
 
+document.addEventListener('DOMContentLoaded', () => {
 const dropdown = document.querySelector('.dropdown');
+const summary = dropdown.querySelector('summary');
 const selectedText = dropdown.querySelector('.selected-text');
 const options = dropdown.querySelectorAll('.dropdown-options li');
-
-
-
-  
 
 
 
@@ -42,12 +40,11 @@ options.forEach((option, index) => {
     selectedText.textContent = option.textContent;
     option.textContent = oldText;
   
-    dropdown.removeAttribute('open');
     sortAndDisplayMedia(value);
+
+   dropdown.open = false;
+
   }
-  
-
-
 
 
 function sortAndDisplayMedia(criteria) {
@@ -121,3 +118,5 @@ async function init() {
 }
 
 init();//Mettre le code JavaScript lié à la page photographer.html
+
+})
