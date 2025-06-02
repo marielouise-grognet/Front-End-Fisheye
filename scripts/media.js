@@ -658,7 +658,7 @@ document.addEventListener('keydown', (event) => {
   
 
 
-// 4. Calculer le total de likes pour ce photographe
+// Calculer le total de likes pour ce photographe
 let totalLikes = filteredMedia.reduce((sum, media) => sum + media.likes, 0);
 const totalLikesElement = document.createElement("div");
 totalLikesElement.classList.add("totalLikes");
@@ -671,7 +671,7 @@ function updateTotalLikes() {
 }
 
 
-// 5. Afficher le prix journalier pour ce photographe
+// Afficher le prix journalier pour ce photographe
 async function displayPhotographerPrice() {
     async function getPhotographer() {
     try {
