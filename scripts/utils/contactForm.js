@@ -40,6 +40,24 @@ function closeModal() {
 }
 
 async function displayPhotographerName() {
+    async function getPhotographer() {
+    try {
+        const response = await fetch("data/photographers.json");
+        const data = await response.json(); // transforme la réponse en objet JS
+        console.log("Données récupérées :", data);
+
+        const params = new URLSearchParams(window.location.search)
+        const id = parseInt(params.get("id"))
+        const photographer = data.photographers.find(p => p.id === id)
+
+        return {photographer};
+
+        
+    } catch (error) {
+        console.error("Erreur lors du chargement des photographes :", error);
+        return { error };
+    }
+}
     // Récupérer les données du photographe
     const { photographer } = await getPhotographer();
 
