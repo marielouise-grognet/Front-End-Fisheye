@@ -52,7 +52,6 @@ function sortAndDisplayMedia(criteria) {
     if (criteria === "popularity") {
       filteredMedia.sort((a, b) => b.likes - a.likes);
     } else if (criteria === "date") {
-      // Suppose que tu as une clé "date" dans chaque objet media
       filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (criteria === "title") {
       filteredMedia.sort((a, b) => a.title.localeCompare(b.title));
@@ -104,7 +103,7 @@ async function getPhotographer() {
 async function displayPhotographer(photographer) {
     const photographerContent = document.querySelector(".photographerContent");
     const photographerModel = photographerTemplate(photographer);
-    const userCardDOM = photographerModel.getUserCardDOM();
+    const userCardDOM = photographerModel.getUserCardPhotographerPageDOM();
     photographerContent.appendChild(userCardDOM);
     };
 
