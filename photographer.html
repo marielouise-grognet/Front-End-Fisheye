@@ -23,16 +23,18 @@
       <div class="galleryContainer">
         <div class="menuFilter">
           <label for="tri" class="tri"> Trier par</label>
-          <details class="dropdown">
+          <details class="dropdown" aria-label="filtrer les photos par">
             <summary class="dropdown-selected">
-              <span class="selected-text">Popularité</span>
+              <span class="selected-text" data-value="popularity" aria-label="popularité">Popularité</span>
               <span class= "chevron-down"><i class="fa-solid fa-chevron-down"></i></span>
               <span class= "chevron-up"><i class="fa-solid fa-chevron-up"></i></span>
             </summary>
             <ul class="dropdown-options">
-              <li data-value="date" tabindex="0">Date</li>
-              <li data-value="title" tabindex="0">Titre</li>
+              <li data-value="popularity" tabindex="0" aria-label="popularité">Popularité</li>
+              <li data-value="date"      tabindex="0" aria-label="date">Date</li>
+              <li data-value="title"     tabindex="0" aria-label="titre">Titre</li>
             </ul>
+
           </details>
           
         </div>
@@ -42,10 +44,10 @@
 
       </div>
     </main>
-    <div id="contact_modal" role="dialog" aria-modal="true" aria-labelledby="contact" tabindex="-1">
+    <div id="contact_modal" role="dialog" aria-modal="true" aria-labelledby="contact" tabindex="0">
 			<div class="modal">
 				<header>
-          <h2 id="contact">Contactez-moi</h2>
+          <h2 id="contact" tabindex="0">Contactez-moi</h2>
           <button onclick="closeModal()" aria-label="Fermer la modale" class="close-button">
             <img src="assets/icons/close.svg" alt="Fermer la modale" />
           </button>

@@ -1,71 +1,90 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-const dropdown = document.querySelector('.dropdown');
-const summary = dropdown.querySelector('summary');
-const selectedText = dropdown.querySelector('.selected-text');
-const options = dropdown.querySelectorAll('.dropdown-options li');
+  const dropdown     = document.querySelector('.dropdown');
+  const selectedText = dropdown.querySelector('.selected-text');
+  const options      = dropdown.querySelectorAll('.dropdown-options li');
 
+  // 1) Initialisation : on force le résume à « Popularité »
+  selectedText.textContent   = "Popularité";
+  selectedText.dataset.value = "popularity";
 
+  // 2) Quand on ouvre le <details>, on cache la ligne correspondante au critère déjà sélectionné
+  dropdown.addEventListener('toggle', () => {
+    if (dropdown.open) {
+      // Parcours de chaque <li> :
+      options.forEach(li => {
+        if (li.dataset.value === selectedText.dataset.value) {
+          // Si le data-value = critère actif, on masque ce <li>
+          li.style.display = "none";
+        } else {
+          // Sinon, on l'affiche normalement
+          li.style.display = "";
+        }
+      });
+    }
+  });
 
-options.forEach((option, index) => {
-    // Clic souris
+  // 3) Ajout des listeners sur chaque option
+  options.forEach(option => {
+    // a) clic souris
     option.addEventListener("click", () => handleOptionSelect(option));
-  
-    // Navigation clavier
-    option.addEventListener("keydown", (e) => {
-      const key = e.key;
-  
-      if (key === "Enter" || key === " ") {
+
+    // b) navigation clavier (Enter / Espace / flèches haut-bas)
+    option.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         handleOptionSelect(option);
-      } else if (key === "ArrowDown") {
+      } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
-        const next = options[index + 1] || options[0];
-        next.focus();
-      } else if (key === "ArrowUp") {
-        e.preventDefault();
-        const prev = options[index - 1] || options[options.length - 1];
-        prev.focus();
+        // focus cyclique
+        const list = Array.from(options).filter(li => li.style.display !== "none");
+        const idx = list.indexOf(option);
+        if (e.key === "ArrowDown") {
+          list[(idx + 1) % list.length].focus();
+        } else {
+          list[(idx - 1 + list.length) % list.length].focus();
+        }
       }
     });
-  
-    // Rendre les options focusables
+
+    // c) rendre focusable
     option.setAttribute("tabindex", "0");
   });
-  
-  
+
   function handleOptionSelect(option) {
-    const value = option.getAttribute('data-value');
-    const oldText = selectedText.textContent;
-    selectedText.textContent = option.textContent;
-    option.textContent = oldText;
-  
+    // 1) On lit la valeur du <li> cliqué
+    const value = option.dataset.value;          
+    const label = option.textContent.trim();     
+
+    // 2) On met à jour le <span class="selected-text">
+    selectedText.textContent   = label;
+    selectedText.dataset.value = value;
+
+    // 3) On ferme le <details>
+    dropdown.removeAttribute("open");
+
+    // 4) On appelle le tri
     sortAndDisplayMedia(value);
-
-   dropdown.open = false;
-
   }
 
-
-function sortAndDisplayMedia(criteria) {
-    // 1. Trier filteredMedia selon le critère
+  // ========== TRI / AFFICHAGE ==========
+  function sortAndDisplayMedia(criteria) {
     if (criteria === "popularity") {
       filteredMedia.sort((a, b) => b.likes - a.likes);
     } else if (criteria === "date") {
       filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (criteria === "title") {
       filteredMedia.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      console.warn(`Critère inconnu : ${criteria}`);
+      return;
     }
-  
-    // 2. Vider la galerie
+
     const container = document.querySelector(".media-gallery");
     container.innerHTML = "";
-  
-    // 3. Réafficher les médias triés
+
     filteredMedia.forEach((media, index) => {
       const mediaModel = mediaFactory(media);
-      const mediaCard = mediaModel.getMediaCardDOM();
-  
+      const mediaCard  = mediaModel.getMediaCardDOM();
       const mediaElement = mediaCard.querySelector("img, video");
       if (mediaElement) {
         mediaElement.style.cursor = "pointer";
@@ -73,49 +92,38 @@ function sortAndDisplayMedia(criteria) {
           openLightbox(index);
         });
       }
-  
       container.appendChild(mediaCard);
     });
   }
-  ;
 
+  // Tri initial au chargement (popularity)
+  sortAndDisplayMedia("popularity");
 
-
-async function getPhotographer() {
+  // ========== LE RESTE DU CODE (getPhotographer, displayPhotographer, init...) ==========
+  async function getPhotographer() {
     try {
-        const response = await fetch("data/photographers.json");
-        const data = await response.json(); // transforme la réponse en objet JS
-        console.log("Données récupérées :", data);
-
-        const params = new URLSearchParams(window.location.search)
-        const id = parseInt(params.get("id"))
-        const photographer = data.photographers.find(p => p.id === id)
-
-        return {photographer};
-
-        
+      const response = await fetch("data/photographers.json");
+      const data     = await response.json();
+      const params   = new URLSearchParams(window.location.search);
+      const id       = parseInt(params.get("id"), 10);
+      const photographer = data.photographers.find(p => p.id === id);
+      return { photographer };
     } catch (error) {
-        console.error("Erreur lors du chargement des photographes :", error);
-        return { error };
+      console.error("Erreur lors du chargement des photographes :", error);
+      return { error };
     }
-}
+  }
 
-async function displayPhotographer(photographer) {
+  async function displayPhotographer(photographer) {
     const photographerContent = document.querySelector(".photographerContent");
-    const photographerModel = photographerTemplate(photographer);
-    const userCardDOM = photographerModel.getUserCardPhotographerPageDOM();
+    const photographerModel   = photographerTemplate(photographer);
+    const userCardDOM         = photographerModel.getUserCardPhotographerPageDOM();
     photographerContent.appendChild(userCardDOM);
-    };
+  }
 
-
-
-
-async function init() {
-    // Récupère les datas des photographes
+  async function init() {
     const { photographer } = await getPhotographer();
     displayPhotographer(photographer);
-}
-
-init();//Mettre le code JavaScript lié à la page photographer.html
-
-})
+  }
+  init();
+});
